@@ -17,7 +17,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="stylesheet" href="/assets/app.css?v=ed4897b497">
+<link rel="stylesheet" href="/assets/app.css?v=a4a9000703">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sunset Talk">
 <meta property="og:title" content="Sunset Talk Privacy Policy">
@@ -45,11 +45,13 @@
 <!--
   DRAFT FOR OWNER REVIEW (2026-11-16) — confirm before publishing. Same points as the Korean draft:
   1. Based on the stage 1 design (same Wi-Fi only, zero servers). If a release build differs (e.g. ships a signaling server), this policy is wrong.
-  2. Section 6: the Wi-Fi Direct permissions (NEARBY_WIFI_DEVICES, ACCESS_FINE_LOCATION maxSdk 32) are still in AndroidManifest.
-     If they are removed before launch, delete that bullet.
+  2. (Resolved 2026-11-16) Section 6: NEARBY_WIFI_DEVICES / ACCESS_FINE_LOCATION were removed from the manifest (beach-of-sunset b25b891);
+     section 6 now lists the five permissions actually declared.
   3. Section 5: email retention wording.  4. Section 10: age line must match the store age rating.
   5. Section 12: keep or drop the promise to re-ask consent before adding any server feature.
   6. The Korean text is the reference version (stated in section 13).
+  7. App changes on 2026-11-16: the identity check is now a 60-digit safety number (fingerprints and PIN check removed), per-contact
+     shared secrets are no longer stored (leftovers are wiped at start-up), and terms consent moved to v2. Sections 3, 4, 7 and the summary follow.
 -->
 <div class="doc-hero">
   <div class="wrap">
@@ -81,7 +83,7 @@
             <tr><td>Identity keys (public and private)</td><td>This phone's secure storage</td><td>Only the public key goes to the person you chat with. The private key never leaves the phone</td></tr>
             <tr><td>Message text</td><td>The two phones in the chat (encrypted with a device key)</td><td>The two people in the chat</td></tr>
             <tr><td>Chat details (their nickname and public key, message times, delivery status)</td><td>The two phones in the chat</td><td>The two people in the chat</td></tr>
-            <tr><td>Fingerprint checks, block list, reports</td><td>This phone</td><td>The person using this phone</td></tr>
+            <tr><td>Safety number checks, block list, reports</td><td>This phone</td><td>The person using this phone</td></tr>
             <tr><td>Us (the developer)</td><td>—</td><td>We receive nothing from the app</td></tr>
           </tbody>
         </table>
@@ -104,7 +106,7 @@
       <p>This goes directly to the other phone on the same Wi-Fi. None of it passes through us.</p>
       <ul>
         <li><strong>Invites</strong>: sending or receiving an invite shares your nickname and peer ID with the other phone. The chat starts only when they accept.</li>
-        <li><strong>Connecting (handshake)</strong>: both phones exchange nickname, peer ID, public key, random values, a timestamp and a list of supported features to create keys used only for this chat.</li>
+        <li><strong>Connecting (handshake)</strong>: both phones exchange nickname, peer ID, public key, random values, a timestamp and a list of supported features to create keys used only for this chat, then exchange a value confirming they derived the same keys. The 60-digit <strong>safety number</strong> on screen is computed by each phone from the two public keys; it is never sent.</li>
         <li><strong>Messages</strong>: the text is end-to-end encrypted (AES-256-GCM) and only decrypted on the other phone. Message IDs, sequence numbers, send times, integrity hashes, delivery receipts, typing indicators and keep-alive signals are not encrypted, so someone watching traffic on the same network cannot read your messages but can see this information and the size and timing of data.</li>
         <li><strong>Reconnecting</strong>: messages missed while disconnected are re-encrypted with the new connection's key and exchanged.</li>
       </ul>
@@ -113,10 +115,10 @@
     <section aria-labelledby="device">
       <h2 id="device">4. What is stored on your phone</h2>
       <ul>
-        <li><strong>Profile and keys</strong>: nickname, avatar, peer ID, identity key pair and per-contact shared secrets are kept in Android Keystore-backed encrypted storage, or on iPhone in the keychain (this device only, not synced to iCloud).</li>
+        <li><strong>Profile and keys</strong>: nickname, avatar, peer ID, identity key pair and the device key that encrypts your chat history are kept in Android Keystore-backed encrypted storage, or on iPhone in the keychain (this device only, not synced to iCloud). Keys created with the person you chat with are not stored; they live in memory only while connected.</li>
         <li><strong>Chat history</strong>: kept in the app's own database. Message text is encrypted with this phone's device key. Details such as the other person's nickname and public key, message times and delivery status are kept unencrypted in the same database.</li>
-        <li><strong>Settings records</strong>: fingerprint checks, block list, reports (up to 100) and your acceptance of the terms are kept in the app's settings storage. Reports stay on this phone unless you email them yourself.</li>
-        <li><strong>Diagnostic log</strong>: the last 500 log lines are kept in memory only and disappear when the app closes. They leave the app only if you copy them from the diagnostics screen, and values such as parts of IP addresses, peer IDs and fingerprints are masked by default.</li>
+        <li><strong>Settings records</strong>: safety number checks, block list, reports (up to 100) and your acceptance of the terms are kept in the app's settings storage. Reports stay on this phone unless you email them yourself.</li>
+        <li><strong>Diagnostic log</strong>: the last 500 log lines are kept in memory only and disappear when the app closes. They leave the app only if you copy them from the diagnostics screen, and values such as parts of IP addresses, peer IDs and safety numbers are masked by default.</li>
         <li><strong>Backups</strong>: on Android, app data is excluded from cloud backup and device-to-device transfer.</li>
       </ul>
     </section>
@@ -136,8 +138,9 @@
       <ul>
         <li><strong>Internet</strong> (INTERNET): needed to connect directly to the other phone on the same Wi-Fi. The app does not connect to servers on the internet.</li>
         <li><strong>Network and Wi-Fi state</strong> (ACCESS_NETWORK_STATE, ACCESS_WIFI_STATE, CHANGE_WIFI_STATE): to check the Wi-Fi connection and find people on the local network.</li>
-        <li><strong>Nearby Wi-Fi devices</strong> (NEARBY_WIFI_DEVICES, Android 13+, marked as not used for location) and <strong>location</strong> (ACCESS_FINE_LOCATION, Android 12 and below only): declared for nearby Wi-Fi discovery. Sunset Talk does not read or store your location.</li>
+        <li><strong>Multicast reception</strong> (CHANGE_WIFI_MULTICAST_STATE): to receive local network announcements (mDNS) on the same Wi-Fi.</li>
       </ul>
+      <p>These are normal permissions granted at install time, so the app never asks for them. No location or nearby-devices permission is declared.</p>
       <h3>iPhone</h3>
       <ul>
         <li><strong>Local Network</strong>: required to find and connect to devices on the same Wi-Fi. If it's off, the app can't find anyone.</li>
@@ -149,7 +152,7 @@
       <h2 id="delete">7. Retention and deletion</h2>
       <ul>
         <li>Information stays on this phone until you delete it. We hold none of it.</li>
-        <li><strong>Settings › Delete all data</strong> removes the profile, encryption keys, chat history, block list and fingerprint checks from this phone.</li>
+        <li><strong>Settings › Delete all data</strong> removes the profile, encryption keys, chat history, block list, safety number checks and your terms acceptance from this phone.</li>
         <li><strong>Uninstalling</strong>: on Android, app data is removed with the app. On iPhone, keys and profile in the keychain can survive uninstalling, so run <strong>Delete all data</strong> first.</li>
         <li>History on the other person's phone has to be deleted there. We can't reach any phone's data, so we can't delete it for you.</li>
       </ul>

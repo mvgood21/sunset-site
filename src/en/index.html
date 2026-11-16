@@ -93,7 +93,7 @@ og_alt: Sunset Talk logo with the line 'Conversations that stay in the room' ove
         </div>
       </li>
     </ol>
-    <p class="steps-note rv">{{icon:hash}}<span>The first time you chat, check that the numbers (fingerprints) on both screens match. It confirms nobody is sitting in between. Messages wait until you confirm.</span></p>
+    <p class="steps-note rv">{{icon:hash}}<span>The first time you chat, check that the numbers (the safety number) on both screens match. It confirms nobody is sitting in between. Messages wait until you confirm.</span></p>
   </div>
 </section>
 
@@ -200,7 +200,7 @@ og_alt: Sunset Talk logo with the line 'Conversations that stay in the room' ove
       <li class="sec rv"><h3>{{icon:check}}End-to-end encrypted by default</h3>
         <p>Messages are encrypted on the sending phone and only decrypted on the receiving one. Someone snooping on the Wi-Fi can't read them.</p></li>
       <li class="sec rv"><h3>{{icon:check}}Check it's really them</h3>
-        <p>When you first connect, both screens show a fingerprint (a set of numbers). Read them to each other and tap confirm if they match. Messages wait until you do.</p></li>
+        <p>When you first connect, both screens show the same 60-digit safety number. Compare them together and tap confirm if they match. Messages wait until you do.</p></li>
       <li class="sec rv"><h3>{{icon:check}}History on your two phones, encrypted</h3>
         <p>Chat history is stored only on the two phones, encrypted with a device key. You can wipe this phone's data in one step from Settings.</p></li>
       <li class="sec rv"><h3>{{icon:check}}No ad or analytics tools</h3>
@@ -214,7 +214,7 @@ og_alt: Sunset Talk logo with the line 'Conversations that stay in the room' ove
             <tr><th scope="row">Key agreement</th><td>X25519 ECDH with the static identity key. Session keys come from HKDF-SHA256 bound to the full transcript of both hello messages; both sides must exchange an HMAC-SHA256 key confirmation before the connection completes, so tampering with version or capability negotiation fails there.</td></tr>
             <tr><th scope="row">Messages</th><td>AES-256-GCM with a random 12-byte nonce per message. Each message carries a SHA-256 hash chain link (prevHash), compared in constant time; the last 2,048 message IDs are remembered to drop duplicates.</td></tr>
             <tr><th scope="row">Handshake replay</th><td>16-byte nonce and a ±120 s timestamp window. Wrong-length, all-zero and low-order-point public keys are rejected.</td></tr>
-            <tr><th scope="row">Peer verification</th><td>Trust on first use, plus a manual fingerprint comparison: the first 64 bits (16 digits) of SHA-256 of the public key. A changed key asks for verification again, and sending, receiving and sync wait until it's done.</td></tr>
+            <tr><th scope="row">Peer verification</th><td>A safety number built from both public keys (SHA-512, 60 digits, about 199 bits), compared by the two people out of band. Both screens show the same value; sending, receiving and sync wait until it is confirmed, and a changed key asks for verification again. A chat only connects to the key of the person who was invited or accepted.</td></tr>
             <tr><th scope="row">Storage</th><td>Message bodies are encrypted with a device key (AES-256-GCM) in the app's SQLite database. Keys live in Android Keystore-backed encrypted storage and the iOS keychain (this device only). Android backup is off.</td></tr>
             <tr><th scope="row">Visible on the LAN in plaintext</th><td>The mDNS (DNS-SD) announcement: nickname, avatar, peer ID, ports, local IPv4 addresses and protocol version. Also each frame's type, sequence number, time and size, and keep-alive signals.</td></tr>
             <tr><th scope="row">Not done</th><td>Forward secrecy, key rotation, message signatures (non-repudiation), screenshot blocking. No outside security audit yet. Rooted or jailbroken devices and malware on the device are out of scope.</td></tr>

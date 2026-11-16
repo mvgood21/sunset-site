@@ -6,23 +6,23 @@
    "glyphs": 116,
    "bytes": 11896
   },
-  "st-400-ko-a.bd71432f.woff2": {
+  "st-400-ko-a.cbebc2ee.woff2": {
    "weight": "400",
    "part": "ko-a",
-   "glyphs": 300,
-   "bytes": 21920
+   "glyphs": 299,
+   "bytes": 21840
   },
-  "st-400-ko-b.4cefe421.woff2": {
+  "st-400-ko-b.6e4b27c9.woff2": {
    "weight": "400",
    "part": "ko-b",
-   "glyphs": 88,
-   "bytes": 8684
+   "glyphs": 85,
+   "bytes": 8440
   },
-  "st-600-latin.a6bbcabf.woff2": {
+  "st-600-latin.af861719.woff2": {
    "weight": "600",
    "part": "latin",
-   "glyphs": 115,
-   "bytes": 11984
+   "glyphs": 116,
+   "bytes": 12036
   },
   "st-600-ko-a.0c2faecc.woff2": {
    "weight": "600",
@@ -30,11 +30,11 @@
    "glyphs": 154,
    "bytes": 12664
   },
-  "st-600-ko-b.fb889836.woff2": {
+  "st-600-ko-b.f603cb0a.woff2": {
    "weight": "600",
    "part": "ko-b",
-   "glyphs": 46,
-   "bytes": 4648
+   "glyphs": 52,
+   "bytes": 5132
   },
   "st-700-latin.da7a8f93.woff2": {
    "weight": "700",
@@ -48,11 +48,11 @@
    "glyphs": 123,
    "bytes": 10540
   },
-  "st-700-ko-b.bd607b54.woff2": {
+  "st-700-ko-b.8ac096a3.woff2": {
    "weight": "700",
    "part": "ko-b",
-   "glyphs": 36,
-   "bytes": 4632
+   "glyphs": 37,
+   "bytes": 4700
   },
   "st-800-latin.f39a5f8d.woff2": {
    "weight": "800",
@@ -81,5 +81,5 @@
    "st-800-latin.f39a5f8d.woff2"
   ]
  },
- "total_bytes": 115952
+ "total_bytes": 116232
 }

@@ -1,0 +1,86 @@
+<!--meta
+title: Sunset Talk Help — can't see someone, fingerprints, blocking
+crumb: Help
+description: What to check when you can't see the other person in Sunset Talk, how to verify fingerprints, how to block and report, and how to delete all data on this phone.
+-->
+<!-- OWNER REVIEW: in-app labels quoted here follow the code as of 2026-11-16 (Korean UI). Update this page if the release build's wording changes, and when the app ships an English UI. -->
+<div class="doc-hero">
+  <div class="wrap">
+    <h1>Sunset Talk Help</h1>
+    <p>What to do when you can't see someone, how to check it's really them, blocking and reporting, and deleting your data. If you're still stuck, email us.</p>
+  </div>
+</div>
+<div class="wrap doc">
+  <nav class="doc-toc" aria-labelledby="toc-h"><p id="toc-h">Contents</p><ol>{{toc}}</ol></nav>
+  <article class="prose">
+    <section aria-labelledby="not-visible">
+      <h2 id="not-visible">I can't see the other person</h2>
+      <p>Sunset Talk finds people inside one router. Work through these in order.</p>
+      <ol class="checklist">
+        <li><h3>Are you on the same Wi-Fi?</h3>
+          <p>Both phones need the same Wi-Fi name. If your router has separate 2.4 GHz and 5 GHz names, put both phones on the same one. Mobile data (LTE/5G) won't connect.</p></li>
+        <li><h3>Do you both have the app open?</h3>
+          <p>Phones find each other while the app is open. Open it on both and wait a moment on the list screen. If the other person hasn't installed it, they won't appear.</p></li>
+        <li><h3>Is it a guest or public network?</h3>
+          <p>Cafés, hotels, venues and company guest networks often stop devices from seeing each other (client isolation). The app can't get around that. Use your office staff network or your home router.</p>
+          <p>If you manage the router, check that "AP isolation" or "client isolation" is off in its settings.</p></li>
+        <li><h3>On iPhone, is Local Network on?</h3>
+          <p>Go to <span class="path">Settings › Privacy &amp; Security › Local Network</span> and turn on Sunset Talk. If you declined the prompt on first launch, you can change it there.</p></li>
+        <li><h3>Using a VPN or a hotspot?</h3>
+          <p>A VPN app can block local network connections. Turn it off for a moment and try again. An iPhone Personal Hotspot may not work for now.</p></li>
+        <li><h3>Reopen</h3>
+          <p>Fully close both apps and open them again, or turn the phone's Wi-Fi off and on.</p></li>
+        <li><h3>Still stuck? Tell us</h3>
+          <p>Copy the log from <span class="path">Settings › Diagnostics</span> in the app and send it to {{email:Sunset Talk connection problem}}. Copied logs have values such as parts of IP addresses and peer IDs masked.</p></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="verify">
+      <h2 id="verify">Check it's really them (fingerprints)</h2>
+      <p>The first time you connect, you confirm in person that no other device on the Wi-Fi is sitting in between. Messages wait until you do.</p>
+      <ol>
+        <li>Tap the identity check notice at the top of the chat.</li>
+        <li>You'll see <strong>your fingerprint</strong> and <strong>their fingerprint</strong>, four groups of four characters.</li>
+        <li>Read your own fingerprint aloud; the other person compares it with "their fingerprint" on their screen, and vice versa. Do it face to face or on a call, not in a Sunset Talk message.</li>
+        <li>If they match, confirm. If they don't, don't confirm, and end the chat.</li>
+      </ol>
+      <p class="note"><strong>"Security key changed"</strong> means the other person may have reinstalled the app or wiped their data. Ask them directly, and don't keep chatting until you've checked the fingerprints again.</p>
+    </section>
+
+    <section aria-labelledby="block">
+      <h2 id="block">Blocking and reporting</h2>
+      <ul>
+        <li><strong>Invites you don't expect</strong>: decline them. Nothing starts unless you accept.</li>
+        <li><strong>Block</strong>: long-press the person in the list and choose <strong>Block</strong>. During a chat, use the menu at the top of the screen. Blocked people disappear from your list, and their invites and connections are refused automatically.</li>
+        <li><strong>Report</strong>: long-press and choose <strong>Report</strong>. Reports are recorded on this phone only. To tell us, copy them from <span class="path">Settings › Reporting</span> and email them.</li>
+        <li><strong>Unblock</strong>: in <span class="path">Settings › Blocked users</span>.</li>
+      </ul>
+      <p>With no server and no accounts, we can't suspend a user. Blocking is the most reliable step. Blocks follow the other device's identity key, so if they wipe the app's data and start over, they can appear again. If you're in danger, contact local emergency services.</p>
+    </section>
+
+    <section aria-labelledby="delete">
+      <h2 id="delete">Delete all data on this phone</h2>
+      <ol>
+        <li>Open <span class="path">Settings › Delete all data</span>.</li>
+        <li>Confirm, and the profile, encryption keys, chat history, block list and fingerprint checks are removed from this phone. This can't be undone.</li>
+        <li>You'll return to the start screen. Starting again creates new keys, so others will need to verify you again.</li>
+      </ol>
+      <ul>
+        <li>History on the other person's phone isn't touched. They have to delete it there.</li>
+        <li>If you plan to uninstall on iPhone, do this first. Keys in the keychain can survive uninstalling.</li>
+        <li>We don't hold your data, so we can't delete it for you. See the <a href="/en/privacy/">privacy policy</a> for details.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="contact">
+      <h2 id="contact">Contact</h2>
+      <p>Email {{email:Sunset Talk help}}. These details help us answer faster:</p>
+      <ul>
+        <li>Phone model and OS version (for example, Galaxy S21 with Android 14, or iPhone 15 with iOS 18)</li>
+        <li>App version (<span class="path">Settings › App version</span>)</li>
+        <li>What kind of Wi-Fi it was (home, office, guest) and what happened</li>
+      </ul>
+      <p>You don't need to send any messages from your chats.</p>
+    </section>
+  </article>
+</div>

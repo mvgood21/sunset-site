@@ -1,0 +1,37 @@
+{
+  "_readme": "선셋톡 랜딩의 유일한 설정 파일. 고친 뒤 `python tools/build.py`를 다시 돌린다. 출시 때 바꿀 값은 README.md '출시 때 바꿀 것'을 본다.",
+
+  "base_url": "https://sunset.sugarmount21.com",
+
+  "prelaunch_noindex": true,
+
+  "stores": {
+    "play_url": "",
+    "appstore_url": "",
+    "appstore_provider_token": ""
+  },
+
+  "utm": {
+    "source": "landing",
+    "medium": "website",
+    "_note": "Defaults when a visitor arrives without utm_* parameters. Incoming utm_source/utm_medium/utm_campaign are passed through to the store links by assets/site.js (URL only, no cookies/storage, sanitised to [A-Za-z0-9._-], 64 chars)."
+  },
+
+  "hero_is_placeholder": true,
+
+  "notify_mailto": true,
+
+  "contact_email": "sugarmount21@gmail.com",
+  "publisher": {
+    "name": "SugarMount",
+    "url": "https://sugarmount21.com/"
+  },
+
+  "privacy_effective": {
+    "date": "2026-11-16",
+    "ko": "2026년 11월 16일",
+    "en": "November 16, 2026"
+  },
+
+  "brand_source": "../beach-of-sunset/brand"
+}

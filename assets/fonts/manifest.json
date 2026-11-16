@@ -1,0 +1,85 @@
+{
+ "files": {
+  "st-400-latin.d4a79d4a.woff2": {
+   "weight": "400",
+   "part": "latin",
+   "glyphs": 116,
+   "bytes": 11896
+  },
+  "st-400-ko-a.bd71432f.woff2": {
+   "weight": "400",
+   "part": "ko-a",
+   "glyphs": 300,
+   "bytes": 21920
+  },
+  "st-400-ko-b.4cefe421.woff2": {
+   "weight": "400",
+   "part": "ko-b",
+   "glyphs": 88,
+   "bytes": 8684
+  },
+  "st-600-latin.a6bbcabf.woff2": {
+   "weight": "600",
+   "part": "latin",
+   "glyphs": 115,
+   "bytes": 11984
+  },
+  "st-600-ko-a.0c2faecc.woff2": {
+   "weight": "600",
+   "part": "ko-a",
+   "glyphs": 154,
+   "bytes": 12664
+  },
+  "st-600-ko-b.fb889836.woff2": {
+   "weight": "600",
+   "part": "ko-b",
+   "glyphs": 46,
+   "bytes": 4648
+  },
+  "st-700-latin.da7a8f93.woff2": {
+   "weight": "700",
+   "part": "latin",
+   "glyphs": 115,
+   "bytes": 11892
+  },
+  "st-700-ko-a.ee1f866f.woff2": {
+   "weight": "700",
+   "part": "ko-a",
+   "glyphs": 123,
+   "bytes": 10540
+  },
+  "st-700-ko-b.bd607b54.woff2": {
+   "weight": "700",
+   "part": "ko-b",
+   "glyphs": 36,
+   "bytes": 4632
+  },
+  "st-800-latin.f39a5f8d.woff2": {
+   "weight": "800",
+   "part": "latin",
+   "glyphs": 115,
+   "bytes": 11948
+  },
+  "st-800-ko-a.917cc20a.woff2": {
+   "weight": "800",
+   "part": "ko-a",
+   "glyphs": 12,
+   "bytes": 2164
+  },
+  "st-800-ko-b.805d9659.woff2": {
+   "weight": "800",
+   "part": "ko-b",
+   "glyphs": 21,
+   "bytes": 2980
+  }
+ },
+ "preload": {
+  "ko": [
+   "st-800-ko-a.917cc20a.woff2"
+  ],
+  "en": [
+   "st-800-latin.f39a5f8d.woff2"
+  ]
+ },
+ "total_bytes": 115952
+}

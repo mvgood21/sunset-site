@@ -1,0 +1,155 @@
+<!--meta
+title: Sunset Talk Privacy Policy
+crumb: Privacy policy
+description: Sunset Talk runs no developer servers and collects no personal data. What the app announces on your Wi-Fi, what it stores on your phone, and how to delete it, described from the actual implementation.
+-->
+<!--
+  DRAFT FOR OWNER REVIEW (2026-11-16) — confirm before publishing. Same points as the Korean draft:
+  1. Based on the stage 1 design (same Wi-Fi only, zero servers). If a release build differs (e.g. ships a signaling server), this policy is wrong.
+  2. Section 6: the Wi-Fi Direct permissions (NEARBY_WIFI_DEVICES, ACCESS_FINE_LOCATION maxSdk 32) are still in AndroidManifest.
+     If they are removed before launch, delete that bullet.
+  3. Section 5: email retention wording.  4. Section 10: age line must match the store age rating.
+  5. Section 12: keep or drop the promise to re-ask consent before adding any server feature.
+  6. The Korean text is the reference version (stated in section 13).
+-->
+<div class="doc-hero">
+  <div class="wrap">
+    <h1>Sunset Talk Privacy Policy</h1>
+    <p>This policy covers <strong>Sunset Talk</strong> (<span lang="ko" class="sys">선셋톡</span>), a chat app published by SugarMount (developer simpest, "we"). It explains, from the actual implementation, what information the app keeps, where, and who can see it.</p>
+    <p class="meta"><span>Effective: {{effective}}</span><span>Policy version 1.0</span></p>
+  </div>
+</div>
+<div class="wrap doc">
+  <nav class="doc-toc" aria-labelledby="toc-h"><p id="toc-h">Contents</p><ol>{{toc}}</ol></nav>
+  <article class="prose">
+    <section aria-labelledby="summary">
+      <h2 id="summary">1. Summary</h2>
+      <div class="summary-box">
+        <ul>
+          <li><strong>We collect no personal data through Sunset Talk.</strong> We run no server for it, and it includes no advertising, analytics or crash-reporting SDKs.</li>
+          <li>While the app is running, it announces your nickname, avatar, peer ID and local IP address to devices on the same Wi-Fi (section 2).</li>
+          <li>Messages go only to the other person's phone, end-to-end encrypted, and history is stored only on the two phones in the chat.</li>
+          <li><strong>Delete all data</strong> in Settings wipes this phone's data in one step.</li>
+        </ul>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Information</th><th scope="col">Where it lives</th><th scope="col">Who can see it</th></tr></thead>
+          <tbody>
+            <tr><td>Nickname, avatar (an emoji)</td><td>This phone's secure storage</td><td>Devices on the same Wi-Fi (while the app runs), the person you chat with</td></tr>
+            <tr><td>Peer ID (an identifier the app creates)</td><td>This phone's secure storage</td><td>Devices on the same Wi-Fi, the person you chat with</td></tr>
+            <tr><td>Local IP address, ports</td><td>Not stored</td><td>Devices on the same Wi-Fi, the person you chat with</td></tr>
+            <tr><td>Identity keys (public and private)</td><td>This phone's secure storage</td><td>Only the public key goes to the person you chat with. The private key never leaves the phone</td></tr>
+            <tr><td>Message text</td><td>The two phones in the chat (encrypted with a device key)</td><td>The two people in the chat</td></tr>
+            <tr><td>Chat details (their nickname and public key, message times, delivery status)</td><td>The two phones in the chat</td><td>The two people in the chat</td></tr>
+            <tr><td>Fingerprint checks, block list, reports</td><td>This phone</td><td>The person using this phone</td></tr>
+            <tr><td>Us (the developer)</td><td>—</td><td>We receive nothing from the app</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="lan">
+      <h2 id="lan">2. What the app announces on your Wi-Fi</h2>
+      <p>To find other Sunset Talk users on the same network, the app sends local network announcements (mDNS/DNS-SD, called Bonjour on Apple devices). They never leave your router for the internet, but <strong>they are not encrypted, so every device on the same network can see them</strong>, including devices without Sunset Talk that use network tools.</p>
+      <ul>
+        <li>Your <strong>nickname</strong> (up to a length limit) and <strong>avatar</strong> (one emoji picked from a list, not a photo)</li>
+        <li>Your <strong>peer ID</strong>: an identifier computed from the identity key the app creates on first launch. It is not tied to a phone number or account.</li>
+        <li>This phone's <strong>local (private) IPv4 addresses</strong>, the <strong>ports</strong> used for chats and invites, and the <strong>protocol version</strong></li>
+      </ul>
+      <p>The announcements continue while the app is running. If you don't want this information visible, don't open the app on a Wi-Fi network you don't trust.</p>
+    </section>
+
+    <section aria-labelledby="peer">
+      <h2 id="peer">3. What goes to the person you chat with</h2>
+      <p>This goes directly to the other phone on the same Wi-Fi. None of it passes through us.</p>
+      <ul>
+        <li><strong>Invites</strong>: sending or receiving an invite shares your nickname and peer ID with the other phone. The chat starts only when they accept.</li>
+        <li><strong>Connecting (handshake)</strong>: both phones exchange nickname, peer ID, public key, random values, a timestamp and a list of supported features to create keys used only for this chat.</li>
+        <li><strong>Messages</strong>: the text is end-to-end encrypted (AES-256-GCM) and only decrypted on the other phone. Message IDs, sequence numbers, send times, integrity hashes, delivery receipts, typing indicators and keep-alive signals are not encrypted, so someone watching traffic on the same network cannot read your messages but can see this information and the size and timing of data.</li>
+        <li><strong>Reconnecting</strong>: messages missed while disconnected are re-encrypted with the new connection's key and exchanged.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="device">
+      <h2 id="device">4. What is stored on your phone</h2>
+      <ul>
+        <li><strong>Profile and keys</strong>: nickname, avatar, peer ID, identity key pair and per-contact shared secrets are kept in Android Keystore-backed encrypted storage, or on iPhone in the keychain (this device only, not synced to iCloud).</li>
+        <li><strong>Chat history</strong>: kept in the app's own database. Message text is encrypted with this phone's device key. Details such as the other person's nickname and public key, message times and delivery status are kept unencrypted in the same database.</li>
+        <li><strong>Settings records</strong>: fingerprint checks, block list, reports (up to 100) and your acceptance of the terms are kept in the app's settings storage. Reports stay on this phone unless you email them yourself.</li>
+        <li><strong>Diagnostic log</strong>: the last 500 log lines are kept in memory only and disappear when the app closes. They leave the app only if you copy them from the diagnostics screen, and values such as parts of IP addresses, peer IDs and fingerprints are masked by default.</li>
+        <li><strong>Backups</strong>: on Android, app data is excluded from cloud backup and device-to-device transfer.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="us">
+      <h2 id="us">5. What we receive</h2>
+      <ul>
+        <li><strong>Nothing through the app.</strong> With no server, no accounts and no analytics, we never receive your messages, nickname, contacts or usage.</li>
+        <li><strong>App stores</strong>: installs and updates are handled by Google Play and the App Store under their own policies. We only see aggregate statistics such as install counts that the stores provide.</li>
+        <li><strong>Email</strong>: if you write to {{email}} with a question, a report or a launch-notice request, we use your address and message only to reply and handle the request. Email is processed by Google (Gmail). We delete it promptly once handled, and launch-notice requests after the launch notice is sent.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="perm">
+      <h2 id="perm">6. Permissions</h2>
+      <h3>Android</h3>
+      <ul>
+        <li><strong>Internet</strong> (INTERNET): needed to connect directly to the other phone on the same Wi-Fi. The app does not connect to servers on the internet.</li>
+        <li><strong>Network and Wi-Fi state</strong> (ACCESS_NETWORK_STATE, ACCESS_WIFI_STATE, CHANGE_WIFI_STATE): to check the Wi-Fi connection and find people on the local network.</li>
+        <li><strong>Nearby Wi-Fi devices</strong> (NEARBY_WIFI_DEVICES, Android 13+, marked as not used for location) and <strong>location</strong> (ACCESS_FINE_LOCATION, Android 12 and below only): declared for nearby Wi-Fi discovery. Sunset Talk does not read or store your location.</li>
+      </ul>
+      <h3>iPhone</h3>
+      <ul>
+        <li><strong>Local Network</strong>: required to find and connect to devices on the same Wi-Fi. If it's off, the app can't find anyone.</li>
+      </ul>
+      <p>The app does not access contacts, photos, camera, microphone, location data or advertising IDs.</p>
+    </section>
+
+    <section aria-labelledby="delete">
+      <h2 id="delete">7. Retention and deletion</h2>
+      <ul>
+        <li>Information stays on this phone until you delete it. We hold none of it.</li>
+        <li><strong>Settings › Delete all data</strong> removes the profile, encryption keys, chat history, block list and fingerprint checks from this phone.</li>
+        <li><strong>Uninstalling</strong>: on Android, app data is removed with the app. On iPhone, keys and profile in the keychain can survive uninstalling, so run <strong>Delete all data</strong> first.</li>
+        <li>History on the other person's phone has to be deleted there. We can't reach any phone's data, so we can't delete it for you.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="third">
+      <h2 id="third">8. Sharing and international transfers</h2>
+      <p>Because we receive no information through the app, there is nothing we share with third parties, outsource or transfer abroad. Email is processed by Google (Gmail).</p>
+    </section>
+
+    <section aria-labelledby="site">
+      <h2 id="site">9. This website</h2>
+      <p>sunset.sugarmount21.com is served by GitHub Pages. The site uses no cookies, no analytics and no third-party fonts or scripts. GitHub may process visitors' IP addresses and access logs for security and to run the service (<a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub Privacy Statement</a>).</p>
+    </section>
+
+    <section aria-labelledby="kids">
+      <h2 id="kids">10. Children</h2>
+      <p>Sunset Talk is not made for children under 14. We collect no personal data from anyone, children included.</p>
+    </section>
+
+    <section aria-labelledby="rights">
+      <h2 id="rights">11. Your rights</h2>
+      <p>All app information is on your phone, so you can review and delete it in the app yourself. To see or delete email you sent us, write to the address below.</p>
+    </section>
+
+    <section aria-labelledby="changes">
+      <h2 id="changes">12. Changes</h2>
+      <p>If the way the app handles data changes, we update this page, the policy version and the effective date. Before adding any feature that needs a server, such as chatting over the internet, we will update this policy and ask for your consent again in the app.</p>
+    </section>
+
+    <section aria-labelledby="contact">
+      <h2 id="contact">13. Contact</h2>
+      <p>For privacy questions or requests to see or delete your email, contact:</p>
+      <ul>
+        <li>Developer: simpest (SugarMount)</li>
+        <li>Email: {{email:Sunset Talk privacy}}</li>
+      </ul>
+      <p>If this English text and the Korean version differ, the Korean version applies.</p>
+      <p>Effective: {{effective}} · Policy version 1.0</p>
+    </section>
+  </article>
+</div>
